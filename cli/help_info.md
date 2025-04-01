@@ -9,3 +9,4 @@ Available commands:
 * /c - cleans context
 * /u - starts container
 * /d - stops container
+* /m - manage model (run 'ai /m help' for more info) 
