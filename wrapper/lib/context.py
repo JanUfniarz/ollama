@@ -3,20 +3,21 @@ import os
 
 
 class Context:
-    _CONTEXT_FILE = '../../data/context.json'
+    def __init__(self, path: str):
+        self.path = path
 
     @property
     def conversation(self) -> list[int]:
         """Wczytuje kontekst rozmowy z pliku."""
-        if not self._is_file_empty(self._CONTEXT_FILE):
-            with open(self._CONTEXT_FILE, "r", encoding="utf-8") as f:
+        if not self._is_file_empty(self.path):
+            with open(self.path, "r", encoding="utf-8") as f:
                 return json.load(f)
         return []
 
     @conversation.setter
     def conversation(self, new_conversation: list[int]):
         """Zapisuje kontekst rozmowy do pliku."""
-        with open(self._CONTEXT_FILE, "w", encoding="utf-8") as f:
+        with open(self.path, "w", encoding="utf-8") as f:
             json.dump(new_conversation, f, ensure_ascii=False)
 
     @staticmethod

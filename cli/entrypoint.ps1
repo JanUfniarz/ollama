@@ -1,9 +1,5 @@
 if ($args[0] -like '/*') {
-    switch ($args[0]) {
-        /c { '' > ..\data\context.json }
-        /b { docker-compose up }
-        default { Write-host "Invalid command: $($args[0])" }
-    }
+    . .\manage.ps1 @args
 } else {
     if ($args.Length -eq 0) {
         $prompt = Read-Host "Prompt"

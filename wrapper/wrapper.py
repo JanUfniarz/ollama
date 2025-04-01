@@ -1,21 +1,20 @@
 import sys
-import time
 
 from lib.context import Context
 from lib.ollama import Ollama
 from lib.terminal import Terminal
 
+
 def main() -> None:
     user_input = ' '.join(sys.argv[1:])
 
-    context: Context = Context()
+    context: Context = Context(path='../data/context.json')
     ollama: Ollama = Ollama(port=11434, model="gemma3")
     terminal: Terminal = Terminal()
 
     response = ollama(user_input, context.conversation)
     output = terminal.stream_response(response, context)
 
-    time.sleep(0.5)
     terminal.clear()
 
     save_output(output)

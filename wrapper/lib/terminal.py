@@ -2,14 +2,11 @@ import json
 
 from requests import Response
 
-from wrapper.wrapper import Context
-
-
 class Terminal:
     def __init__(self):
         self._lines_printed: int = 0
 
-    def stream_response(self, response: Response, context: Context) -> str:
+    def stream_response(self, response: Response, context) -> str:
         full_response = ""
 
         for line in response.iter_lines():
