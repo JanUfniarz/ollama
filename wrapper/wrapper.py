@@ -9,10 +9,10 @@ from lib.io import IO
 def main() -> None:
     io: IO = IO(
         output_path='../data/output.md',
-        model_path='../data/model.txt'
+        input_path='../data/model.txt'
     )
     context: Context = Context(path='../data/context.json')
-    ollama: Ollama = Ollama(port=11434, model=io.model_name)
+    ollama: Ollama = Ollama(port=11434, model=io.input)
     terminal: Terminal = Terminal()
 
     user_input: str = ' '.join(sys.argv[1:])

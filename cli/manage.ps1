@@ -1,13 +1,7 @@
+. ./context_manager.ps1
+
 $command = $args[0]
 $management_args = $args | Select-Object -Skip 1
-
-function save-context {
-    Get-Content ..\data\context.json > "..\data\previous_conversations\$(topic).json"
-}
-
-function topic {
-    return (Get-Content ..\data\topic.txt -Raw).Trim() -replace "\s", "_"
-}
 
 switch ($args[0]) {
     # clear context
@@ -36,30 +30,21 @@ switch ($args[0]) {
     }
 
     # save context
-    /s {
-        if ($management_args) {
-            $management_args > ..\data\topic.txt
-            save-context
-        } elseif (-not $(topic) -or ($(topic) -match '^\s*$')) {
-            Write-Host 'Provide topic!' -Foreground 'red'
-        } else {
-            save-context
-        }
-    }
+    /s { save-context $management_args }
 
     # load context
-    /l {
-        $conv = Get-ChildItem -Path ..\data\previous_conversations `
-                    | Select-Object -ExpandProperty Name `
-                    | fzf
+    /l { load-context }
 
-        $conv = $conv -replace "^\s+|\uFEFF", ""
-
-        Get-Content "..\data\previous_conversations\$conv" > ..\data\context.json
-        $conv -replace ".json", "" > ..\data\topic.txt
+    # show history ! Not working!!!
+    /t {
+        python ..\wrapper\detokenizer.py
+        glow ..\data\history\
     }
 
-    /t {}
+    # info
+    /i {
+        Write-Host "Model: $(Get-Content ..\data\model.txt -Raw)\nTopic: $(topic)"
+    }
 
     default {
         Write-host "Invalid command: $($args[0])" -Foreground 'red'
