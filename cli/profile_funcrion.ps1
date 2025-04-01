@@ -6,7 +6,7 @@ function ai {
 
     $originalPath = $PWD.Path
 
-    Set-Location ~\Projects\my_tools\ollama
+    Set-Location ~\Projects\my_tools\ollama\cli
     if ($arguments.Length -eq 0) {
         . .\entrypoint.ps1
     } else {

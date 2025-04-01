@@ -21,7 +21,7 @@ def main() -> None:
     save_output(output)
 
 def save_output(output) -> None:
-    with open('output.md', "w", encoding="utf-8") as f:
+    with open('../data/output.md', "w", encoding="utf-8") as f:
         f.write(output)
 
 if __name__ == '__main__':

@@ -1,16 +1,16 @@
 if ($args[0] -like '/*') {
     switch ($args[0]) {
-        /c { '' > context.json }
+        /c { '' > ..\data\context.json }
         /b { docker-compose up }
         default { Write-host "Invalid command: $($args[0])" }
     }
 } else {
     if ($args.Length -eq 0) {
         $prompt = Read-Host "Prompt"
-        python .\wrapper.py $prompt
+        python ..\wrapper\wrapper.py $prompt
     } else {
-        python .\wrapper.py @args
+        python ..\wrapper\wrapper.py @args
     }
-    glow output.md
-    '' > output.md
+    glow ..\data\output.md
+    '' > ..\data\output.md
 }

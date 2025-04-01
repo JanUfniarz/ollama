@@ -1,4 +1,4 @@
-/context.json
-/ollama_data/
-/output.md
+/data/context.json
+/data/ollama_data/
+/data/output.md
 /.idea/

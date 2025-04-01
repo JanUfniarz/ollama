@@ -3,7 +3,7 @@ import os
 
 
 class Context:
-    _CONTEXT_FILE = '../context.json'
+    _CONTEXT_FILE = '../../data/context.json'
 
     @property
     def conversation(self) -> list[int]:

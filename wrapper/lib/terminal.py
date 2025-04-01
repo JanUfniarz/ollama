@@ -2,7 +2,7 @@ import json
 
 from requests import Response
 
-from lib.context import Context
+from wrapper.wrapper import Context
 
 
 class Terminal:
