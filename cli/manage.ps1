@@ -1,3 +1,6 @@
+$command = $args[0]
+$management_args = $args | Select-Object -Skip 1
+
 switch ($args[0]) {
     /c {
         '' > ..\data\context.json
@@ -10,11 +13,14 @@ switch ($args[0]) {
 
     /h { glow .\help_info.md }
 
+    /o { docker exec ollama ollama $management_args }
+
     /m {
-        $model_args = $args | Select-Object -Skip 1
-        docker exec ollama ollama $model_args
+        $management_args > ..\data\model.txt
+        Write-Host 'Model changed!' -Foreground 'green'
     }
 
-    default { Write-host "Invalid command: $($args[0])" }
+    default {
+        Write-host "Invalid command: $($args[0])" -Foreground 'red'
+    }
 }
-

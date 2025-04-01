@@ -9,4 +9,5 @@ Available commands:
 * /c - cleans context
 * /u - starts container
 * /d - stops container
-* /m - manage model (run 'ai /m help' for more info) 
+* /o - manage ollama (run 'ai /o help' for more info)
+* /m - change model
