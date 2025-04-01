@@ -9,7 +9,7 @@ if ($args[0] -like '/*') {
         $prompt = Read-Host "Prompt"
         python .\wrapper.py $prompt
     } else {
-        python .\wrapper.py $args
+        python .\wrapper.py @args
     }
     glow output.md
     '' > output.md

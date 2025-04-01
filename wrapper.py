@@ -5,10 +5,7 @@ from lib.context import Context
 from lib.ollama import Ollama
 from lib.terminal import Terminal
 
-print('script')
-
 def main() -> None:
-    print('main')
     user_input = ' '.join(sys.argv[1:])
 
     context: Context = Context()
