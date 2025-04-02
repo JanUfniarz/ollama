@@ -39,6 +39,9 @@ switch ($args[0]) {
     # show history
     /t { glow $data_path\active_conversation }
 
+    # remove context
+    /r { remove-context }
+
     # info
     /i {
         Write-Host "Model: $(Get-Content $data_path\model.txt -Raw)"

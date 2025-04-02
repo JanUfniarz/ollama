@@ -9,6 +9,13 @@ function topic {
     return (Get-Content $data_path\active_conversation\topic.txt -Raw).Trim() -replace "\s", "_"
 }
 
+function select-topic {
+    $res = Get-ChildItem -Path $data_path\previous_contexts `
+                    | Select-Object -ExpandProperty Name `
+                    | fzf
+    return $res -replace "^\s+|\uFEFF", ""
+}
+
 function save-context {
     param($new_topic)
 
@@ -23,11 +30,7 @@ function save-context {
 }
 
 function load-context {
-    $conv = Get-ChildItem -Path $data_path\previous_contexts `
-                    | Select-Object -ExpandProperty Name `
-                    | fzf
-
-    $conv = $conv -replace "^\s+|\uFEFF", ""
+    $conv = select-topic
 
     Get-Content "$data_path\previous_contexts\$conv" > $data_path\active_conversation\context.json
 
@@ -37,4 +40,12 @@ function load-context {
     $conv > $data_path\active_conversation\topic.txt
     Write-Host "Context loaded!" -Foreground 'green'
     Write-Host "Topic: $conv"
+}
+
+function remove-context {
+    $conv = select-topic
+    Remove-Item "$data_path\previous_contexts\$conv"
+
+    $conv = $conv -replace ".json", ""
+    Remove-Item "$data_path\previous_conversations\$conv.md"
 }

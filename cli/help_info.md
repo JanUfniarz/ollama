@@ -11,6 +11,7 @@ Available commands:
 * /c - cleans context
 * /s - saves context
 * /l - loads context
+* /r - removes context
 * /t - shows full conversation
 
 * /u - starts container
