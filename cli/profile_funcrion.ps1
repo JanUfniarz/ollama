@@ -6,12 +6,14 @@ function ai {
 
     $originalPath = $PWD.Path
 
-    Set-Location "<path to ollama cli>"
-    if ($arguments.Length -eq 0) {
-        . .\entrypoint.ps1
-    } else {
-        . .\entrypoint.ps1 @arguments
+    try {
+        Set-Location "<path to ollama cli>"
+        if ($arguments.Length -eq 0) {
+            . .\entrypoint.ps1
+        } else {
+            . .\entrypoint.ps1 @arguments
+        }
+    } finally {
+        Set-Location $originalPath
     }
-
-    Set-Location $originalPath
 }
