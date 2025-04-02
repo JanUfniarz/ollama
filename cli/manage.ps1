@@ -6,8 +6,8 @@ $management_args = $args | Select-Object -Skip 1
 switch ($args[0]) {
     # clear context
     /c {
-        '' > ..\data\context.json
-        '' > ..\data\topic.txt
+        Get-ChildItem ..\..\data\active_conversation\ `
+                      | ForEach-Object { "" > $_.FullName }
         Write-Host 'Context cleaned!' -Foreground 'green'
     }
 
@@ -25,7 +25,7 @@ switch ($args[0]) {
 
     # change model
     /m {
-        $management_args > ..\data\model.txt
+        $management_args > ..\..\data\model.txt
         Write-Host 'Model changed!' -Foreground 'green'
     }
 
@@ -35,15 +35,13 @@ switch ($args[0]) {
     # load context
     /l { load-context }
 
-    # show history ! Not working!!!
-    /t {
-        python ..\wrapper\detokenizer.py
-        glow ..\data\history\
-    }
+    # show history
+    /t { glow ..\..\data\active_conversation }
 
     # info
     /i {
-        Write-Host "Model: $(Get-Content ..\data\model.txt -Raw)\nTopic: $(topic)"
+        Write-Host "Model: $(Get-Content ..\..\data\model.txt -Raw)"
+        Write-Host "Topic: $(topic)"
     }
 
     default {

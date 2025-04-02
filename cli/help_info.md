@@ -6,11 +6,14 @@ Usage:
 
 Available commands:
 * /h - shows this message
+* /i - shows info
+
 * /c - cleans context
+* /s - saves context
+* /l - loads context
+* /t - shows full conversation
+
 * /u - starts container
 * /d - stops container
 * /o - manage ollama (run 'ai /o help' for more info)
 * /m - change model
-* /s  saves context
-* /l loads context
-* /i info

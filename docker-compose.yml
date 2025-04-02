@@ -8,4 +8,4 @@ services:
     ports:
       - "11434:11434"
     volumes:
-      - ./data/ollama_data:/root/.ollama
+      - ../data/ollama_data:/root/.ollama

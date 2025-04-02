@@ -7,6 +7,6 @@ if ($args[0] -like '/*') {
     } else {
         python ..\wrapper\wrapper.py @args
     }
-    glow ..\data\output.md
-    '' > ..\data\output.md
+    glow ..\..\data\output.md
+    '' > ..\..\data\output.md
 }
