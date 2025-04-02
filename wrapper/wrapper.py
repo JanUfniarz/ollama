@@ -8,14 +8,16 @@ from lib.terminal import Terminal
 
 
 def main() -> None:
-    output: File = File('../../data/output.md')
-    model: File = File('../../data/model.txt')
+    data_path: str = '../../data'
+
+    output: File = File(f'{data_path}/output.md')
+    model: File = File(f'{data_path}/model.txt')
 
     history: History = History(
-        file=File('../../data/active_conversation/show_conversation.md'),
+        file=File(f'{data_path}/active_conversation/show_conversation.md'),
         model=model.read()
     )
-    context: Context = Context(path='../../data/active_conversation/context.json')
+    context: Context = Context(path=f'{data_path}/active_conversation/context.json')
     ollama: Ollama = Ollama(port=11434, model=model.read())
     terminal: Terminal = Terminal()
 

@@ -1,4 +1,5 @@
 . ./context_manager.ps1
+$data_path = '..\..\data'
 
 $command = $args[0]
 $management_args = $args | Select-Object -Skip 1
@@ -6,7 +7,7 @@ $management_args = $args | Select-Object -Skip 1
 switch ($args[0]) {
     # clear context
     /c {
-        Get-ChildItem ..\..\data\active_conversation\ `
+        Get-ChildItem $data_path\active_conversation\ `
                       | ForEach-Object { "" > $_.FullName }
         Write-Host 'Context cleaned!' -Foreground 'green'
     }
@@ -25,7 +26,7 @@ switch ($args[0]) {
 
     # change model
     /m {
-        $management_args > ..\..\data\model.txt
+        $management_args > $data_path\model.txt
         Write-Host 'Model changed!' -Foreground 'green'
     }
 
@@ -36,11 +37,11 @@ switch ($args[0]) {
     /l { load-context }
 
     # show history
-    /t { glow ..\..\data\active_conversation }
+    /t { glow $data_path\active_conversation }
 
     # info
     /i {
-        Write-Host "Model: $(Get-Content ..\..\data\model.txt -Raw)"
+        Write-Host "Model: $(Get-Content $data_path\model.txt -Raw)"
         Write-Host "Topic: $(topic)"
     }
 

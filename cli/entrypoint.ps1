@@ -1,3 +1,5 @@
+$data_path = '..\..\data'
+
 if ($args[0] -like '/*') {
     . .\manage.ps1 @args
 } else {
@@ -7,6 +9,6 @@ if ($args[0] -like '/*') {
     } else {
         python ..\wrapper\wrapper.py @args
     }
-    glow ..\..\data\output.md
-    '' > ..\..\data\output.md
+    glow $data_path\output.md
+    '' > $data_path\output.md
 }
