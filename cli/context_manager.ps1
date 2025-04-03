@@ -6,12 +6,15 @@ function copy-context {
 }
 
 function topic {
-    return (Get-Content $data_path\active_conversation\topic.txt -Raw).Trim() -replace "\s", "_"
+    $res = Get-Content $data_path\active_conversation\topic.txt -Raw
+    if ($res) { $res = $res.Trim() -replace "\s", "_" }
+    return $res
 }
 
 function select-topic {
     $res = Get-ChildItem -Path $data_path\previous_contexts `
                     | Select-Object -ExpandProperty Name `
+                    | ForEach-Object { $_ -replace ".json", "" } `
                     | fzf
     return $res -replace "^\s+|\uFEFF", ""
 }
@@ -32,9 +35,7 @@ function save-context {
 function load-context {
     $conv = select-topic
 
-    Get-Content "$data_path\previous_contexts\$conv" > $data_path\active_conversation\context.json
-
-    $conv = $conv -replace ".json", ""
+    Get-Content "$data_path\previous_contexts\$conv.json" > $data_path\active_conversation\context.json
     Get-Content "$data_path\previous_conversations\$conv.md" > $data_path\active_conversation\show_conversation.md
 
     $conv > $data_path\active_conversation\topic.txt
@@ -44,8 +45,6 @@ function load-context {
 
 function remove-context {
     $conv = select-topic
-    Remove-Item "$data_path\previous_contexts\$conv"
-
-    $conv = $conv -replace ".json", ""
+    Remove-Item "$data_path\previous_contexts\$conv.json"
     Remove-Item "$data_path\previous_conversations\$conv.md"
 }
