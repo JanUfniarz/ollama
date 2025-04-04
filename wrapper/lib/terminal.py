@@ -1,4 +1,5 @@
 import json
+from typing import Any
 
 from requests import Response
 
@@ -6,8 +7,9 @@ class Terminal:
     def __init__(self):
         self._lines_printed: int = 0
 
-    def stream_response(self, response: Response, context) -> str:
+    def stream_response(self, response: Response) -> tuple[str, Any|None]:
         full_response = ""
+        context = None
 
         for line in response.iter_lines():
             json_data = json.loads(line.decode("utf-8"))
@@ -18,9 +20,9 @@ class Terminal:
                 self._lines_printed += text.count("\n")
 
             if "context" in json_data:
-                context.conversation = json_data["context"]
+                context = json_data["context"]
 
-        return full_response
+        return full_response, context
 
     def clear(self) -> None:
         print('\n')
