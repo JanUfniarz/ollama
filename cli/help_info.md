@@ -18,3 +18,6 @@ Available commands:
 * /d - stops container
 * /o - manage ollama (run 'ai /o help' for more info)
 * /m - change model
+---
+
+To add a system prompts ad it in system_prompts.json 
