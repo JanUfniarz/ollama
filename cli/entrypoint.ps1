@@ -9,7 +9,7 @@ function ai {
     $originalPath = $PWD.Path
 
     try {
-        Set-Location "$PSScriptRoot\cli"
+        Set-Location $PSScriptRoot
 
         if ($arguments[0] -like '/*') {
             . .\manage.ps1 @arguments
